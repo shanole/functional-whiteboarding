@@ -1,0 +1,48 @@
+TURNING STRINGS INTO URLS - Shannon Lee
+
+// WITHOUT RECURSION
+1. Loop through string
+2. Whenever u see a “ “  replace with %20
+
+input: “Jasmine Ann Jones” 
+output: “Jasmine %20Ann%20Jones”
+
+function stringToUrl(string) {
+	let url = "";  
+	for (let i=0; i < string.length; i++) {
+		if (string[i] === " ") {
+			url += "%20";
+		} else {
+    			url += string[i]
+    		}
+	}
+	return url;
+}
+
+
+// WITH RECURSION
+1. Base case: 1 word —> return word
+2. Other cases: take the last word off the sentence, return the new sentence + %20 + last word
+
+
+Jasmine Ann Jones
+
+Jasmine —>return Jasmine
+Jasmine Ann —> return %20Ann
+Jasmine Ann Jones —> return %20Jones
+
+Jasmine + %20Ann + %20Jones
+
+
+function stringToUrl(string) {
+  const strArray = string.split(" ");
+  const strLength = strArray.length;
+  if (strLength === 1) {
+  	return string;
+  } else {
+  	let word = strArray[strLength-1];
+    const newArray = strArray.slice(0, strLength-1);
+    const newString = newArray.join(" "); 
+    return stringToUrl(newString) + "%20" + word;
+  }
+}
